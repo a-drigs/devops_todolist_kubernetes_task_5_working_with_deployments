@@ -2,7 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todoapp-deployment
+  namespace: mateapp
 spec:
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -11,7 +13,6 @@ spec:
   selector:
     matchLabels:
       app: todoapp
-  replicas: 3
   template:
     metadata:
       name: todoapp
@@ -36,3 +37,10 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
